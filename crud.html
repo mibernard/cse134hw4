@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple CRUD</title>
+    <style>
+      form-field {
+        display: block;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Blog CRUD</h1>
 
+    <div>
+      <output id="blogPosts"></output>
+      <button id="addBtn">Add Post</button>
+    </div>
+
+    <dialog id="addDialog">
+      <form id="addForm">
+        <input type="hidden" name="postID" id="postID" />
+        <form-field>
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            required
+            placeholder="Title"
+            id="title"
+            name="title"
+          />
+        </form-field>
+        <form-field>
+          <label for="date">Date:</label>
+          <input type="date" required id="date" name="date" />
+        </form-field>
+        <form-field>
+          <label for="summary">Summary:</label>
+          <textarea
+            required
+            placeholder="1-2 sentences summary of post"
+            id="summary"
+            name="summary"
+          ></textarea>
+        </form-field>
+        <form-field style="text-align: center">
+          <button type="submit" id="saveBtn">Save</button>
+          <button type="cancel" id="cancelBtn" formnovalidate>Cancel</button>
+        </form-field>
+      </form>
+    </dialog>
+
+    <script type="module">
+      import * as Blog from "./blog.js";
+
+      window.editPost = Blog.editPost;
+      window.deletePost = Blog.deletePost;
+
+      window.addEventListener("DOMContentLoaded", function () {
+        Blog.setUp();
+      });
+    </script>
+  </body>
+</html>

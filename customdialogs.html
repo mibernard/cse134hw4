@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Custom Dialogs</title>
+    <style>
+      #dialogOutput {
+        visibility: hidden;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.js"></script>
+  </head>
+  <body>
+    <h1>Custom Dialogs</h1>
+    <form>
+      <button id="alertBtn" type="button">Alert</button>
+      <button id="confirmBtn" type="button">Confirm</button>
+      <button id="promptBtn" type="button">Prompt</button>
+    </form>
+    <output id="dialogOutput"></output>
 
+    <script type="module">
+      import { cstmAlert, cstmConfirm, cstmPrompt } from "./customdialog.js";
+
+      window.addEventListener("DOMContentLoaded", function () {
+        function sanitize(strings, ...values) {
+          const dirty = strings.reduce(
+            (prev, next, i) => `${prev}${next}${values[i] || ""}`,
+            ""
+          );
+          return DOMPurify.sanitize(dirty);
+        }
+
+        document
+          .getElementById("alertBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+            cstmAlert("bruh");
+          });
+
+        document
+          .getElementById("confirmBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            let dialog = cstmConfirm("Confirm your choice");
+
+            dialog.addEventListener("close", function () {
+              output.innerHTML = `The value returned by the <b>confirm</b> method is: ${
+                this.returnValue != ""
+              }`;
+              output.style.visibility = "visible";
+            });
+          });
+
+        document
+          .getElementById("promptBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            let dialog = cstmPrompt("Hows the weather today?");
+            dialog.addEventListener("close", function () {
+              output.innerHTML = sanitize`The value returned by the <b>prompt</b> method is: ${this}`;
+              output.style.visibility = "visible";
+            });
+          });
+      });
+    </script>
+  </body>
+</html>
