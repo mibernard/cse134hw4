@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
+    <title>Simple Dialogs</title>
+    <style>
+      #dialogOutput {
+        visibility: hidden;
+      }
+    </style>
+    <!-- <script src="matth/node_modules/dompurify/dist/purify.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.js"></script>
+  </head>
+  <body>
+    <h1>Simple Dialogs</h1>
+
+    <form>
+      <button id="alertBtn" type="button">Alert</button>
+      <button id="confirmBtn" type="button">Confirm</button>
+      <button id="promptBtn" type="button">Prompt</button>
+      <button id="safePromptBtn" type="button">Safer Prompt</button>
+    </form>
+
+    <output id="dialogOutput"></output>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("alertBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            setTimeout(() => {
+              alert("Alert pressed!");
+            }, 0);
+          });
+
+        document
+          .getElementById("confirmBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            setTimeout(() => {
+              let result = confirm("Confirm your choice");
+              output.innerHTML = `The value returned by the <b>confirm</b> method is: ${result}`;
+              output.style.visibility = "visible";
+            }, 0);
+          });
+
+        document
+          .getElementById("promptBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            setTimeout(() => {
+              let result = prompt("Whats good", "");
+              if (!result || result.trim().length === 0) {
+                result = "User didn't enter anything";
+              }
+              output.innerHTML = `The value returned by the <b>prompt</b> method is: ${result}`;
+              output.style.visibility = "visible";
+            }, 0);
+          });
+
+        document
+          .getElementById("safePromptBtn")
+          .addEventListener("click", function () {
+            let output = document.getElementById("dialogOutput");
+            output.style.visibility = "hidden";
+
+            setTimeout(() => {
+              let result = prompt("Whats good(safer)?", "");
+              if (!result || result.trim().length === 0) {
+                result = "User didn't enter anything";
+              }
+              output.innerHTML = sanitize`The value returned by the <b>safe prompt</b> method is: ${result}`;
+              output.style.visibility = "visible";
+            }, 0);
+          });
+
+        function sanitize(strings, ...values) {
+          const dirty = strings.reduce(
+            (prev, next, i) => `${prev}${next}${values[i] || ""}`,
+            ""
+          );
+          return DOMPurify.sanitize(dirty);
+        }
+      });
+    </script>
+  </body>
+</html>
