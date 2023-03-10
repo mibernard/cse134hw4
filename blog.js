@@ -25,9 +25,18 @@ export function editPost(postID) {
 
 export function addPost() {
     let addDialog = document.getElementById("addDialog");
-        
+
     document.body.appendChild(addDialog);
     addDialog.showModal();   
+
+
+    let newPost;
+
+    newPost.title = document.getElementById('title').value;
+    newPost.date = document.getElementById('date').value;
+    newPost.summary = document.getElementById('summary').value;
+    // document.getElementById('postID').value = postID;
+    posts.push(newPost);   
 
 }
 
@@ -46,7 +55,7 @@ export function renderPosts() {
         ).join('')}
         </ul>`;
     }
-    document.querySelector('#postList').innerHTML = markup;
+    document.querySelector('#blogPosts').innerHTML = markup;
 }
 
 export function resetAll() {}
@@ -56,4 +65,5 @@ export function setUp() {
     document.getElementById('addBtn').addEventListener('click', function() {
         let dialog = addPost();
     }); 
+    renderPosts();
 }
