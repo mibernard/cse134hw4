@@ -47,6 +47,10 @@ export function editPost(postID) {
 
 export function addPost() {
   let postList = [];
+  if (localStorage.getItem("localStoragePosts") == null) {
+    localStorage.setItem("localStoragePosts", JSON.stringify(posts));
+  }
+
   if (JSON.parse(localStorage.getItem("localStoragePosts")).length != 0) {
     postList = JSON.parse(localStorage.getItem("localStoragePosts"));
   }
@@ -91,7 +95,7 @@ export function renderPosts() {
 export function resetAll() {}
 
 export function setUp() {
-  // localStorage.setItem('localStoragePosts', JSON.stringify(posts));
+  //   localStorage.setItem("localStoragePosts", JSON.stringify(posts));
   renderPosts();
 
   let addDialog = document.getElementById("addDialog");
