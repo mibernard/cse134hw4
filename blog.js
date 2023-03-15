@@ -65,7 +65,7 @@ export function addPost() {
 }
 
 export function renderPosts() {
-  posts = JSON.parse(localStorage.getItem("localStoragePosts"));
+  posts = JSON.parse(localStorage.getItem("localStoragePosts")) || [];
   let markup = "";
   if (posts.length === 0) {
     markup = `No posts to display. There are ${posts.length} posts`;
