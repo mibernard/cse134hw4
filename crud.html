@@ -14,7 +14,9 @@
     <h1>Blog CRUD</h1>
 
     <div>
+      <p id="tempPara"></p>
       <output id="blogPosts"></output>
+      <br />
       <button id="addBtn">Add Post</button>
     </div>
 
@@ -33,7 +35,7 @@
         </form-field>
         <form-field>
           <label for="date">Date:</label>
-          <input type="date" required id="date" name="date" />
+          <input type="date" id="date" name="date" />
         </form-field>
         <form-field>
           <label for="summary">Summary:</label>
@@ -46,7 +48,7 @@
         </form-field>
         <form-field style="text-align: center">
           <button type="submit" id="saveBtn">Save</button>
-          <button type="cancel" id="cancelBtn" formnovalidate>Cancel</button>
+          <button type="button" id="cancelBtn" formnovalidate>Cancel</button>
         </form-field>
       </form>
     </dialog>

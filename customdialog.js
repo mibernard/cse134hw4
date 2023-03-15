@@ -41,8 +41,8 @@ export function cstmPrompt(str) {
     </div>
     <input type="text" id="promptResponse" value="" size="60"
     <div style="text-align: right">
-    <button type="submit" id="cancelBtn" value="">Cancel</button>
     <button type="submit" id="okBtn" value="true">Ok</button>
+    <button type="submit" id="cancelBtn" value="">Cancel</button>
     </div>
     </form>
     `;
